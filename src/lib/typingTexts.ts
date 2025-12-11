@@ -1,15 +1,25 @@
 export const typingTexts = [
-  "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet at least once. It has been used to test typewriters and computer keyboards since the late nineteenth century.",
-  "Programming is the art of telling a computer what to do through a series of instructions. Good code is not just functional but also readable and maintainable by other developers.",
-  "Technology continues to shape our daily lives in profound ways. From smartphones to artificial intelligence, innovation drives progress across every industry and touches every corner of society.",
-  "The ocean covers more than seventy percent of the Earth's surface. Its depths remain largely unexplored, holding countless mysteries and species yet to be discovered by scientists.",
-  "Music has the power to evoke emotions and memories like nothing else. A single melody can transport us back in time or inspire us to dream about the future.",
-  "Reading expands our horizons and introduces us to new ideas and perspectives. Books are windows into different worlds, cultures, and ways of thinking about life.",
-  "Exercise is essential for maintaining both physical and mental health. Regular activity strengthens the body, sharpens the mind, and improves overall quality of life significantly.",
-  "The stars we see at night are actually suns located unimaginably far away. Some of the light reaching our eyes today began its journey thousands of years ago.",
-  "Creativity is not limited to artists and musicians. Problem solving in any field requires innovative thinking and the ability to see connections that others might miss.",
-  "Coffee has become one of the most popular beverages worldwide. Its rich aroma and energizing effects have made it an essential part of morning routines across cultures.",
+  "The morning sun filtered softly through the curtains, casting long stripes of gold across the wooden floor. Birds chattered outside as if debating who would take the first flight of the day. The air was cool, carrying the faint scent of rain from the night before. It was the kind of morning that made everything feel a little slower, a little gentler, as though the world itself had paused to take a breath.",
+  
+  "Rivers have shaped civilizations for thousands of years, guiding trade routes, feeding crops, and offering places for people to gather. Along their winding paths, towns emerged, stories unfolded, and entire cultures were built. Even today, a quiet walk by a river can feel like touching a thread of history, connecting the present moment to countless lives that flowed before it.",
+  
+  "The library was silent except for the soft hum of an old ceiling fan and the occasional rustle of pages turning. Rows of books stretched out like corridors of forgotten worlds, waiting for someone curious enough to bring them back to life. A single beam of light fell across a dusty table, illuminating a book left open as if the reader had stepped away only for a moment.",
+  
+  "Travelers who explore mountain trails often describe a strange mixture of exhaustion and excitement. Every steep climb tests their strength, yet each new ridge reveals a view more breathtaking than the last. The air grows thinner, the wind sharper, and the landscape wider, reminding them how small humans are compared to the vastness of the world.",
+  
+  "Rainy evenings tend to blur time in a comforting way. The steady rhythm of droplets tapping against windows makes even busy streets feel calmer. People walk a little slower, lights reflect softly on wet pavement, and conversations drift into quieter tones. It is a moment when the world seems to fold into itself, offering a brief pause from the usual rush.",
+  
+  "Old photographs carry a certain charm, capturing moments that once felt ordinary but now seem precious. The colors may fade and the edges may curl, yet the memories held within remain vivid. A smile frozen in time, a place that no longer exists, or a person long gone can suddenly come alive again with a simple glance.",
+  
+  "The marketplace buzzed with life as vendors called out their prices and customers negotiated with animated gestures. Aromas of fresh bread, ripe fruit, and warm spices filled the air, mixing into a scent that belonged uniquely to that place. Each stall held its own little world, full of stories waiting to be overheard.",
+  
+  "As the train rumbled along the tracks, its rhythmic clatter created a steady soundtrack that soothed the passengers. Fields and forests blurred past the windows, painting shifting landscapes of green and gold. Inside, people read, slept, or gazed quietly outside, each lost in their own thoughts as the journey carried them forward.",
+  
+  "Winter nights have a quiet beauty that often goes unnoticed. Snow muffles the usual sounds of the city, turning everything soft and still. Streetlights glow like small beacons, illuminating drifting flakes that spiral gently through the cold air. Even the simplest walk can feel like stepping into a scene from a storybook.",
+  
+  "In small coastal towns, life moves at a different pace. Waves crash against the shore in a rhythm older than memory, and seabirds circle lazily overhead. Fishermen mend their nets by the docks, greeting each passerby with familiar warmth. The scent of saltwater lingers in the air, reminding everyone that the sea is both a provider and a mystery.",
 ];
+
 
 export const getRandomText = (): string => {
   return typingTexts[Math.floor(Math.random() * typingTexts.length)];
