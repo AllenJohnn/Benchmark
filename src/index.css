@@ -1,12 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
 @layer base {
   :root {
-    --background: 0 0% 98%;
+    --background: 0 0% 100%;
     --foreground: 0 0% 10%;
 
     --card: 0 0% 100%;
@@ -39,6 +39,39 @@
 
     --radius: 0.5rem;
   }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 12%;
+
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 96%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 10%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 0 0% 85%;
+  }
 }
 
 @layer base {
@@ -55,6 +88,12 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
+  button,
+  a,
+  [role='button'] {
+    @apply transition-colors duration-200 ease-out;
+  }
+
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
@@ -62,7 +101,7 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white border border-border shadow-sm;
+    @apply bg-card border border-border shadow-sm transition-all duration-200 ease-out;
   }
 }
 
@@ -78,5 +117,15 @@
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

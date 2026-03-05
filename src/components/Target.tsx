@@ -34,11 +34,11 @@ export function Target({ x, y, size, onHit }: TargetProps) {
       onClick={handleClick}
     >
       {/* Outer ring */}
-      <div className="absolute inset-0 rounded-full bg-destructive border-4 border-white shadow-lg" />
+      <div className="absolute inset-0 rounded-full bg-destructive border-4 border-background shadow-lg" />
       
       {/* Middle ring */}
       <div 
-        className="absolute rounded-full bg-white"
+        className="absolute rounded-full bg-background"
         style={{ 
           top: '20%',
           left: '20%',

@@ -28,7 +28,7 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="pt-24 pb-12 px-4">
+      <main className="pt-24 pb-12 px-4 animate-in fade-in-0 duration-200">
         <div className="container mx-auto max-w-4xl">
           {/* Hero Section */}
           <div className="text-center mb-16">
@@ -47,7 +47,8 @@ export default function Index() {
               <Link
                 key={test.id}
                 to={test.path}
-                className="group glass-card rounded-lg p-8 transition-all duration-200 hover:shadow-md"
+                viewTransition
+                className="group glass-card rounded-lg p-8 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
               >
                 <div className={`w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mb-6`}>
                   <test.icon className={`w-6 h-6 ${test.color}`} />

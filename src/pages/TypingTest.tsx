@@ -3,6 +3,13 @@ import { Header } from '@/components/Header';
 import { ScoreDisplay } from '@/components/ScoreDisplay';
 import { useScoreHistory } from '@/hooks/useScoreHistory';
 import { getRandomText } from '@/lib/typingTexts';
+import {
+  calculateAccuracy,
+  calculateCompletionRatio,
+  calculateErrorCount,
+  calculateGrossWpm,
+  calculateRecordedWpm,
+} from '@/lib/typingMetrics';
 import { Button } from '@/components/ui/button';
 import { Play, RotateCcw } from 'lucide-react';
 
@@ -22,17 +29,6 @@ export default function TypingTest() {
   
   const { scores, addTypingScore } = useScoreHistory();
 
-  const calculateAccuracy = useCallback((typed: string, original: string) => {
-    if (typed.length === 0) return 100;
-    let correct = 0;
-    for (let i = 0; i < typed.length; i++) {
-      if (typed[i] === original[i]) {
-        correct++;
-      }
-    }
-    return (correct / typed.length) * 100;
-  }, []);
-
   const startGame = useCallback(() => {
     setText(getRandomText());
     setTypedText('');
@@ -46,23 +42,30 @@ export default function TypingTest() {
   }, []);
 
   const endGame = useCallback(() => {
-    if (timerRef.current) {
+    if (timerRef.current !== null) {
       clearInterval(timerRef.current);
     }
     
     setGameState('finished');
     
-    const elapsedMinutes = (TEST_DURATION - timeLeft) / 60 || 1 / 60;
-    const wordsTyped = typedText.trim().split(/\s+/).filter(w => w.length > 0).length;
-    const wpm = Math.round(wordsTyped / elapsedMinutes);
+    const elapsedSeconds = Math.max(TEST_DURATION - timeLeft, 1);
     const accuracy = calculateAccuracy(typedText, text);
+    const grossWpm = calculateGrossWpm(typedText.length, elapsedSeconds);
+    const netWpm = calculateRecordedWpm(grossWpm, accuracy);
+    const errorCount = calculateErrorCount(typedText, text);
+    const completionRatio = calculateCompletionRatio(typedText.length, text.length);
+    const wpm = Math.round(netWpm);
     
     addTypingScore({
       wpm,
+      grossWpm: Math.round(grossWpm),
+      netWpm: Math.round(netWpm),
       accuracy,
       chars: typedText.length,
+      errorCount,
+      completionRatio,
     });
-  }, [timeLeft, typedText, text, addTypingScore, calculateAccuracy]);
+  }, [timeLeft, typedText, text, addTypingScore]);
 
   useEffect(() => {
     if (gameState === 'playing' && startTime !== null) {
@@ -77,7 +80,7 @@ export default function TypingTest() {
     }
 
     return () => {
-      if (timerRef.current) {
+      if (timerRef.current !== null) {
         clearInterval(timerRef.current);
       }
     };
@@ -105,10 +108,13 @@ export default function TypingTest() {
     }
   }, [gameState, startTime, text.length, endGame]);
 
-  const elapsedMinutes = startTime ? (TEST_DURATION - timeLeft) / 60 : 0;
-  const wordsTyped = typedText.trim().split(/\s+/).filter(w => w.length > 0).length;
-  const wpm = elapsedMinutes > 0 ? Math.round(wordsTyped / elapsedMinutes) : 0;
+  const elapsedSeconds = startTime ? Math.max(TEST_DURATION - timeLeft, 1) : 0;
   const accuracy = calculateAccuracy(typedText, text);
+  const grossWpm = elapsedSeconds > 0 ? calculateGrossWpm(typedText.length, elapsedSeconds) : 0;
+  const netWpm = calculateRecordedWpm(grossWpm, accuracy);
+  const errorCount = calculateErrorCount(typedText, text);
+  const completionRatio = calculateCompletionRatio(typedText.length, text.length);
+  const wpm = Math.round(netWpm);
 
   const renderText = () => {
     return text.split('').map((char, index) => {
@@ -138,7 +144,7 @@ export default function TypingTest() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="pt-20 pb-8 px-4">
+      <main className="pt-20 pb-8 px-4 animate-in fade-in-0 duration-200">
         <div className="container mx-auto max-w-6xl">
           {/* Stats Bar */}
           <div className="glass-card rounded-lg p-4 mb-4">
@@ -233,6 +239,13 @@ export default function TypingTest() {
                       </div>
                       <div className="text-sm text-muted-foreground">Chars</div>
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6 mb-8 font-mono text-sm text-center">
+                    <div className="text-muted-foreground">Gross: <span className="text-foreground">{Math.round(grossWpm)} wpm</span></div>
+                    <div className="text-muted-foreground">Errors: <span className="text-foreground">{errorCount}</span></div>
+                    <div className="text-muted-foreground">Net: <span className="text-foreground">{Math.round(netWpm)} wpm</span></div>
+                    <div className="text-muted-foreground">Completion: <span className="text-foreground">{completionRatio.toFixed(0)}%</span></div>
                   </div>
                   
                   <Button onClick={startGame} size="lg" className="font-mono gap-2">

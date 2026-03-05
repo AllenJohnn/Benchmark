@@ -70,7 +70,7 @@ export function ScoreDisplay(props: ScoreDisplayProps) {
             className={`p-3 rounded bg-secondary/50 ${index === 0 ? 'ring-1 ring-foreground/10' : ''}`}
           >
             <div className="flex items-center justify-between text-sm font-mono mb-1">
-              <span>{score.wpm} wpm</span>
+              <span>{score.netWpm ?? score.wpm} wpm</span>
               <span className={score.accuracy >= 95 ? 'text-success' : score.accuracy >= 85 ? '' : 'text-destructive'}>
                 {score.accuracy.toFixed(0)}%
               </span>
@@ -78,6 +78,12 @@ export function ScoreDisplay(props: ScoreDisplayProps) {
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{score.chars} chars</span>
               <span>{formatDate(score.date)}</span>
+            </div>
+            <div className="mt-2 grid grid-cols-2 gap-1 text-[11px] text-muted-foreground font-mono">
+              <span>gross: {score.grossWpm ?? score.wpm}</span>
+              <span>errors: {score.errorCount ?? 0}</span>
+              <span>net: {score.netWpm ?? score.wpm}</span>
+              <span>done: {(score.completionRatio ?? 0).toFixed(0)}%</span>
             </div>
           </div>
         ))}

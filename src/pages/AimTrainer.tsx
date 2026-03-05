@@ -122,7 +122,7 @@ export default function AimTrainer() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="pt-20 pb-8 px-4">
+      <main className="pt-20 pb-8 px-4 animate-in fade-in-0 duration-200">
         <div className="container mx-auto max-w-6xl">
           {/* Stats Bar */}
           <div className="glass-card rounded-lg p-4 mb-4">
