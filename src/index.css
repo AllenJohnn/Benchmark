@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,70 +7,88 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    --foreground: 0 0% 0%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 0 0% 15%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 0 0% 94%;
+    --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 0 0% 94%;
-    --accent-foreground: 0 0% 15%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success: 0 0% 0%;
+    --success-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 0% 0%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 0% 15%;
+    --ring: 0 0% 0%;
 
-    --radius: 0.5rem;
+    --radius: 0px;
+
+    /* Swiss Light Theme Custom Variables */
+    --app-bg: #ffffff;
+    --app-text-correct: #000000;
+    --app-text-pending: #cccccc;
+    --app-border: #e5e5e5;
+    --app-caret: #000000;
+    --app-comment: #777777;
+    --app-selected: #000000;
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 96%;
-    --primary-foreground: 0 0% 12%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 0 0% 16%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 0 0% 16%;
-    --accent-foreground: 0 0% 96%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 100%;
 
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 10%;
+    --success: 0 0% 100%;
+    --success-foreground: 0 0% 0%;
 
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 0% 100%;
+    --destructive-foreground: 0 0% 0%;
 
-    --border: 0 0% 22%;
-    --input: 0 0% 22%;
-    --ring: 0 0% 85%;
+    --border: 0 0% 10%;
+    --input: 0 0% 10%;
+    --ring: 0 0% 100%;
+
+    /* Swiss Dark Theme Custom Variables */
+    --app-bg: #000000;
+    --app-text-correct: #ffffff;
+    --app-text-pending: #333333;
+    --app-border: #1a1a1a;
+    --app-caret: #ffffff;
+    --app-comment: #888888;
+    --app-selected: #ffffff;
   }
 }
 
@@ -86,12 +104,14 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--app-bg);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   }
 
   button,
   a,
   [role='button'] {
-    @apply transition-colors duration-200 ease-out;
+    @apply transition-colors duration-150 ease-in-out;
   }
 
   .font-mono {
@@ -99,33 +119,80 @@
   }
 }
 
-@layer components {
-  .glass-card {
-    @apply bg-card border border-border shadow-sm transition-all duration-200 ease-out;
-  }
-}
-
 @layer utilities {
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-}
+  @keyframes blink-caret {
+    0%,
+    100% {
+      opacity: 1;
+    }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
+    50% {
+      opacity: 0;
+    }
   }
-  50% {
-    transform: translateY(-10px);
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
+  @keyframes slide-up-fade {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes result-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.98) translateY(6px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Monochrome Character States (Swiss Typographic) */
+  .char-pending {
+    color: var(--app-text-pending);
+    transition: color 0.1s ease;
+  }
+
+  .char-correct {
+    color: var(--app-text-correct);
+    transition: color 0.1s ease;
+  }
+
+  .char-wrong {
+    color: var(--app-text-pending);
+    text-decoration: line-through;
+    border-bottom: 2px solid var(--app-text-correct);
+    transition: color 0.1s ease, border-color 0.1s ease;
+  }
+
+  .animate-blink-caret {
+    animation: blink-caret 1s step-start infinite;
+  }
+
+  .animate-slide-up-fade {
+    animation: slide-up-fade 0.15s ease-out both;
+  }
+
+  .animate-result-pop {
+    animation: result-pop 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .app-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .app-background {
+    background-color: var(--app-bg);
   }
 }

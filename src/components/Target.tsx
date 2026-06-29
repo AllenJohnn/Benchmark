@@ -21,7 +21,7 @@ export function Target({ x, y, size, onHit }: TargetProps) {
 
   return (
     <div
-      className="absolute cursor-crosshair select-none transition-transform duration-75"
+      className="absolute cursor-crosshair select-none animate-in zoom-in-75 duration-100"
       style={{
         left: x,
         top: y,
@@ -33,28 +33,23 @@ export function Target({ x, y, size, onHit }: TargetProps) {
       }}
       onClick={handleClick}
     >
-      {/* Outer ring */}
-      <div className="absolute inset-0 rounded-full bg-destructive border-4 border-background shadow-lg" />
+      {/* Target Reticle circle */}
+      <div className="absolute inset-0 rounded-full border border-[var(--app-caret)] transition-colors duration-150" />
       
-      {/* Middle ring */}
-      <div 
-        className="absolute rounded-full bg-background"
-        style={{ 
-          top: '20%',
-          left: '20%',
-          width: '60%',
-          height: '60%',
-        }}
-      />
+      {/* Target Crosshair lines */}
+      {/* Horizontal line */}
+      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-[var(--app-caret)] opacity-35" />
+      {/* Vertical line */}
+      <div className="absolute left-1/2 top-0 w-[1px] h-full bg-[var(--app-caret)] opacity-35" />
       
-      {/* Center dot */}
+      {/* Small center dot */}
       <div 
-        className="absolute rounded-full bg-destructive"
+        className="absolute rounded-full bg-[var(--app-caret)]"
         style={{ 
-          top: '40%',
-          left: '40%',
-          width: '20%',
-          height: '20%',
+          top: '46%',
+          left: '46%',
+          width: '8%',
+          height: '8%',
         }}
       />
     </div>

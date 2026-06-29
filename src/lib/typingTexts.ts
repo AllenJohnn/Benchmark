@@ -21,6 +21,33 @@ export const typingTexts = [
 ];
 
 
+const wordBank = Array.from(
+  new Set(
+    typingTexts
+      .join(' ')
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? [],
+  ),
+);
+
+const getRandomWord = (): string => {
+  return wordBank[Math.floor(Math.random() * wordBank.length)];
+};
+
+const buildWordSequence = (wordCount: number): string => {
+  const words: string[] = [];
+
+  for (let index = 0; index < wordCount; index += 1) {
+    words.push(getRandomWord());
+  }
+
+  return words.join(' ');
+};
+
 export const getRandomText = (): string => {
-  return typingTexts[Math.floor(Math.random() * typingTexts.length)];
+  return buildWordSequence(500);
+};
+
+export const getWordCountText = (wordCount: number): string => {
+  return buildWordSequence(wordCount);
 };
